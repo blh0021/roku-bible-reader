@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="BibleReader" extends="Scene"> 
+	<children>
+	<LabelList
+	  id = "myLabel"
+	  translation = "[160,92]"
+	  itemSize = "[440,48]" >
+	 
+	  <ContentNode id = "books" role = "content" >
+	  </ContentNode>
+	 
+	</LabelList>
+</children>
+<!-- BrightScript Portion -->
+<script type="text/brightscript" >
+<![CDATA[
+  '** 
+  '** Example: Edit a Label size and color with BrightScript
+  '**
+
+  function init()
+    m.top.setFocus(true)
+    m.myLabel = m.top.findNode("myLabel")
+    m.myLabel.setFocus(true)
+    m.books = m.top.findNode("books")
+    addBooks()
+  end function
+  
+  sub addBooks()
+    text=ReadAsciiFile("pkg:/data/books.json")
+    books = ParseJSON(text)
+	for each book in books
+		addItem(book)
+	end for   
+  end sub
+  
+  sub addItem(itemtext as string)
+      item = m.books.createChild("ContentNode")
+      item.title = itemtext
+  end sub
+]]>
+</script>
+<!-- End of BrightScript Portion -->
+</component>
